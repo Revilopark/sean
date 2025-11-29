@@ -59,9 +59,9 @@ export default function Home() {
                 <span className="text-accent italic">Expedition Log</span>
               </h1>
               <p className="mt-4 max-w-xl text-lg text-sidebar-primary-foreground/90 font-body leading-relaxed">
-                Documenting opportunities in Marine Ecology, Animal Sciences, and Conservation Management.
+                Documenting local opportunities in Marine Ecology, Animal Sciences, and Conservation Management.
                 <br />
-                <span className="font-mono text-sm opacity-75 mt-2 block">Base Camp: Bakersfield, CA</span>
+                <span className="font-mono text-sm opacity-75 mt-2 block">Region: Bakersfield, CA (Local Only)</span>
               </p>
             </div>
             
@@ -140,18 +140,17 @@ export default function Home() {
               </Select>
             </div>
 
-            <div className="w-full md:w-1/4 space-y-2">
+            <div className="w-full md:w-1/4 space-y-2 opacity-50 pointer-events-none">
               <label className="text-sm font-mono font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
                 <ArrowUpDown className="w-4 h-4" />
                 Sort Order
               </label>
-              <Select value={sortBy} onValueChange={setSortBy}>
+              <Select value="default" disabled>
                 <SelectTrigger className="border-2 border-input bg-background/50">
-                  <SelectValue placeholder="Default" />
+                  <SelectValue placeholder="Local Only" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="default">Default (ID)</SelectItem>
-                  <SelectItem value="proximity">Proximity to Base Camp</SelectItem>
+                  <SelectItem value="default">Local Only</SelectItem>
                 </SelectContent>
               </Select>
             </div>

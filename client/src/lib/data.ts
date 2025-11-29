@@ -1,6 +1,100 @@
 import { Opportunity } from "../../../shared/schema";
 
 export const opportunities: Opportunity[] = [
+  /* Filtered to Bakersfield Only */
+  {
+    "id": 34,
+    "title": "Assistant Environmental Scientist",
+    "organization": "Quad-Knopf Inc",
+    "location": "Bakersfield, CA",
+    "type": "Full-time",
+    "category": "Environmental Science",
+    "salary": "$27 - $32 per hour",
+    "requirements": "Technical report writing, Bachelor's degree preferred",
+    "benefits": "Full benefits package",
+    "url": "https://www.indeed.com/q-conservation-l-bakersfield,-ca-jobs.html",
+    "distance_from_bakersfield": "0 miles"
+  },
+  {
+    "id": 35,
+    "title": "Associate Environmental Scientist",
+    "organization": "Quad-Knopf Inc",
+    "location": "Bakersfield, CA",
+    "type": "Full-time",
+    "category": "Environmental Science",
+    "salary": "$32 - $40 per hour",
+    "requirements": "Experience in environmental science, Bachelor's degree",
+    "benefits": "Full benefits package",
+    "url": "https://www.indeed.com/q-conservation-l-bakersfield,-ca-jobs.html",
+    "distance_from_bakersfield": "0 miles"
+  },
+  {
+    "id": 36,
+    "title": "Environmental Technician",
+    "organization": "TRC Companies, Inc.",
+    "location": "Bakersfield, CA",
+    "type": "Full-time",
+    "category": "Environmental Science",
+    "salary": "$26 - $38 per hour",
+    "requirements": "Field work experience, environmental monitoring",
+    "benefits": "Competitive benefits",
+    "url": "https://www.indeed.com/q-conservation-l-bakersfield,-ca-jobs.html",
+    "distance_from_bakersfield": "0 miles"
+  },
+  {
+    "id": 37,
+    "title": "Environmental Field Technician",
+    "organization": "Tetra Tech",
+    "location": "Bakersfield, CA",
+    "type": "Full-time",
+    "category": "Field Research",
+    "salary": "$29 - $33 per hour",
+    "requirements": "Field data collection, environmental sampling",
+    "benefits": "Full benefits package",
+    "url": "https://www.indeed.com/q-conservation-l-bakersfield,-ca-jobs.html",
+    "distance_from_bakersfield": "0 miles"
+  },
+  {
+    "id": 38,
+    "title": "Senior Biologist (Wildlife/Waters Monitoring)",
+    "organization": "BRC-Equals3",
+    "location": "Bakersfield, CA",
+    "type": "Full-time",
+    "category": "Wildlife Biology",
+    "salary": "Competitive",
+    "requirements": "Experience with wildlife and waters monitoring",
+    "benefits": "Not specified",
+    "url": "https://www.indeed.com/q-conservation-l-bakersfield,-ca-jobs.html",
+    "distance_from_bakersfield": "0 miles"
+  },
+  {
+    "id": 39,
+    "title": "Corpsmember",
+    "organization": "Farmworkers Institute Of Education And Leadership",
+    "location": "Bakersfield, CA",
+    "type": "Part-time",
+    "category": "Conservation Work",
+    "salary": "$18 per hour",
+    "requirements": "Interest in conservation and community service",
+    "benefits": "Training provided",
+    "url": "https://www.indeed.com/q-conservation-l-bakersfield,-ca-jobs.html",
+    "distance_from_bakersfield": "0 miles"
+  },
+  {
+    "id": 40,
+    "title": "Environmental Compliance Specialist",
+    "organization": "Belshire",
+    "location": "Bakersfield, CA",
+    "type": "Full-time",
+    "category": "Environmental Science",
+    "salary": "$20 - $22 per hour",
+    "requirements": "Knowledge of environmental regulations",
+    "benefits": "Full benefits package",
+    "url": "https://www.indeed.com/q-conservation-l-bakersfield,-ca-jobs.html",
+    "distance_from_bakersfield": "0 miles"
+  },
+  /* Archived Non-Local Opportunities */
+  /*
   {
     "id": 1,
     "title": "Sea Animals Rescue San Diego",
@@ -429,7 +523,11 @@ export const opportunities: Opportunity[] = [
     "benefits": "Hands-on husbandry experience with local SoCal marine life",
     "url": "https://cma.recreation.parks.lacity.gov/get-involved/volunteer-programs",
     "distance_from_bakersfield": "~130 miles"
-  },
+  }
+  */
+];
+
+/*
   {
     "id": 34,
     "title": "Assistant Environmental Scientist",
@@ -519,7 +617,6 @@ export const opportunities: Opportunity[] = [
     "requirements": "Knowledge of environmental regulations",
     "benefits": "Full benefits package",
     "url": "https://www.indeed.com/q-conservation-l-bakersfield,-ca-jobs.html",
-    "distance_from_bakersfield": "0 miles"
+     "distance_from_bakersfield": "0 miles"
   }
-
-];
+  */
