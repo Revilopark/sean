@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -78,7 +78,19 @@ const initialData: ResumeData = {
 };
 
 export default function ResumeBuilder() {
-  const [resumeData, setResumeData] = useState<ResumeData>(initialData);
+  const [resumeData, setResumeData] = useState<ResumeData>(() => {
+    const saved = localStorage.getItem("resumeData");
+    return saved ? JSON.parse(saved) : initialData;
+  });
+  const [lastSaved, setLastSaved] = useState<Date | null>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      localStorage.setItem("resumeData", JSON.stringify(resumeData));
+      setLastSaved(new Date());
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [resumeData]);
   const [showAIReview, setShowAIReview] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [shareUrl, setShareUrl] = useState("");
@@ -262,9 +274,16 @@ export default function ResumeBuilder() {
         <div className="container mx-auto max-w-6xl flex justify-between items-center">
           <div className="flex items-center gap-3">
             <FileText className="w-6 h-6 text-[#e6d5c3]" />
-            <h1 className="font-heading text-2xl font-bold tracking-tight text-[#fdfbf7]">
-              Field Resume Builder
-            </h1>
+            <div className="flex flex-col">
+              <h1 className="font-heading text-2xl font-bold tracking-tight text-[#fdfbf7]">
+                Field Resume Builder
+              </h1>
+              {lastSaved && (
+                <span className="text-xs text-[#e6d5c3]/80 font-mono">
+                  Auto-saved at {lastSaved.toLocaleTimeString()}
+                </span>
+              )}
+            </div>
           </div>
           <div className="flex gap-3">
             <Button asChild variant="outline" className="border-[#e6d5c3]/30 text-[#e6d5c3] hover:bg-[#e6d5c3]/10 hover:text-white">
