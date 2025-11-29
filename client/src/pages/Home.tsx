@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { toast } from "sonner";
 import { opportunities, mentors } from "@/lib/data";
 import { useJobTracker } from "@/contexts/JobTrackerContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -412,20 +413,26 @@ export default function Home() {
                         </div>
                         
                         <div className="grid grid-cols-2 gap-2">
-                          <Button asChild variant="outline" size="sm" className="text-[10px] h-8 border-primary/20 hover:bg-primary/5">
-                            <a 
-                              href={`https://www.google.com/search?q=${encodeURIComponent(job.similar_jobs_query || job.title + " jobs Bakersfield CA")}`} 
-                              target="_blank" 
-                              rel="noopener noreferrer" 
-                              className="flex items-center justify-center gap-1.5"
-                            >
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="text-[10px] h-8 border-primary/20 hover:bg-primary/5"
+                            onClick={() => {
+                              if (!isTracked(job.id)) {
+                                addJob(job);
+                                toast.success("Added to Expedition Log for tracking");
+                              }
+                              window.open(`https://www.google.com/search?q=${encodeURIComponent(job.similar_jobs_query || job.title + " jobs Bakersfield CA")}`, '_blank');
+                            }}
+                          >
+                            <span className="flex items-center justify-center gap-1.5">
                               <SearchCode className="w-3 h-3" />
                               Find Similar Jobs
-                            </a>
+                            </span>
                           </Button>
                           <Button asChild variant="outline" size="sm" className="text-[10px] h-8 border-primary/20 hover:bg-primary/5">
                             <a 
-                              href={`https://www.google.com/search?q=${encodeURIComponent(job.learning_resources_query || job.title + " training courses")}`} 
+                              href={`https://seanscourses.manus.space/?prompt=${encodeURIComponent(`Create a comprehensive course curriculum for learning ${job.title} skills, focusing on: ${job.recommended_skills?.join(", ") || "relevant industry skills"}. Include modules on practical field techniques and local Bakersfield context.`)}`}
                               target="_blank" 
                               rel="noopener noreferrer" 
                               className="flex items-center justify-center gap-1.5"
