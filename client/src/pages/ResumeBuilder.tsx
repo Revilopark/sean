@@ -85,11 +85,8 @@ export default function ResumeBuilder() {
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      localStorage.setItem("resumeData", JSON.stringify(resumeData));
-      setLastSaved(new Date());
-    }, 1000);
-    return () => clearTimeout(timer);
+    localStorage.setItem("resumeData", JSON.stringify(resumeData));
+    setLastSaved(new Date());
   }, [resumeData]);
   const [showAIReview, setShowAIReview] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
