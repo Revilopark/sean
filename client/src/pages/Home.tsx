@@ -77,7 +77,7 @@ export default function Home() {
                   </Link>
                 </Button>
                 <Button asChild variant="outline" className="bg-transparent text-white border-white/30 hover:bg-white/10 hover:text-white font-bold shadow-lg">
-                  <Link href="/resume-builder">
+                  <Link href="/resume">
                     <FileText className="w-4 h-4 mr-2" />
                     Resume Builder
                   </Link>
