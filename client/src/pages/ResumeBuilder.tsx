@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Plus, Trash2, Download, FileText, ChevronLeft, Printer, Image as ImageIcon, Upload } from "lucide-react";
+import { Plus, Trash2, Download, FileText, ChevronLeft, Printer, Image as ImageIcon, Upload, Sparkles, X } from "lucide-react";
 import { Link } from "wouter";
 import { useReactToPrint } from "react-to-print";
 
@@ -78,6 +78,9 @@ const initialData: ResumeData = {
 
 export default function ResumeBuilder() {
   const [resumeData, setResumeData] = useState<ResumeData>(initialData);
+  const [showAIReview, setShowAIReview] = useState(false);
+  const [jobDescription, setJobDescription] = useState("");
+  const [analysisResults, setAnalysisResults] = useState<{score: number, missingKeywords: string[], suggestions: string[]} | null>(null);
   const componentRef = useRef<HTMLDivElement>(null);
 
   const handlePrint = useReactToPrint({
@@ -197,6 +200,44 @@ export default function ResumeBuilder() {
     }
   };
 
+  const analyzeResume = () => {
+    if (!jobDescription.trim()) return;
+
+    // Simple keyword extraction and matching logic
+    const jdLower = jobDescription.toLowerCase();
+    const resumeText = JSON.stringify(resumeData).toLowerCase();
+    
+    // Common environmental keywords to look for
+    const keywords = [
+      "conservation", "ecology", "marine", "biology", "field work", "data collection",
+      "research", "monitoring", "species", "habitat", "gis", "reporting",
+      "communication", "teamwork", "safety", "outdoor", "wildlife", "sampling"
+    ];
+
+    const foundKeywords = keywords.filter(k => resumeText.includes(k));
+    const missingKeywords = keywords.filter(k => jdLower.includes(k) && !resumeText.includes(k));
+    
+    // Calculate a simple score
+    const score = Math.min(100, Math.round((foundKeywords.length / (foundKeywords.length + missingKeywords.length)) * 100) + 50);
+
+    const suggestions = [];
+    if (missingKeywords.length > 0) {
+      suggestions.push(`Consider adding these keywords found in the job description: ${missingKeywords.join(", ")}`);
+    }
+    if (resumeData.summary.length < 100) {
+      suggestions.push("Your professional summary is quite short. Try expanding it to highlight your passion for conservation.");
+    }
+    if (resumeData.portfolio.length === 0) {
+      suggestions.push("Adding portfolio items (photos of field work) can significantly boost your application for outdoor roles.");
+    }
+
+    setAnalysisResults({
+      score,
+      missingKeywords,
+      suggestions
+    });
+  };
+
   return (
     <div className="min-h-screen bg-[#fdfbf7] font-sans selection:bg-[#e6d5c3] selection:text-[#2c3e50]">
       {/* Header */}
@@ -214,12 +255,94 @@ export default function ResumeBuilder() {
                 <ChevronLeft className="w-4 h-4 mr-2" /> Back to Field Guide
               </Link>
             </Button>
+            <Button onClick={() => setShowAIReview(true)} className="bg-blue-600 text-white hover:bg-blue-700 font-bold border-none">
+              <Sparkles className="w-4 h-4 mr-2" /> AI Review
+            </Button>
             <Button onClick={() => handlePrint && handlePrint()} className="bg-[#e6d5c3] text-[#2c3e50] hover:bg-white font-bold">
               <Printer className="w-4 h-4 mr-2" /> Export PDF
             </Button>
           </div>
         </div>
       </header>
+
+      {/* AI Review Modal */}
+      {showAIReview && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 print:hidden">
+          <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <CardHeader className="flex flex-row items-center justify-between sticky top-0 bg-white z-10 border-b">
+              <CardTitle className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-blue-600" />
+                AI Resume Scanner
+              </CardTitle>
+              <Button variant="ghost" size="icon" onClick={() => setShowAIReview(false)}>
+                <X className="w-4 h-4" />
+              </Button>
+            </CardHeader>
+            <CardContent className="space-y-6 pt-6">
+              {!analysisResults ? (
+                <div className="space-y-4">
+                  <p className="text-sm text-muted-foreground">
+                    Paste the job description below. We'll scan your resume against it to find missing keywords and suggest improvements.
+                  </p>
+                  <Textarea 
+                    placeholder="Paste job description here..." 
+                    className="min-h-[200px]"
+                    value={jobDescription}
+                    onChange={(e) => setJobDescription(e.target.value)}
+                  />
+                  <Button onClick={analyzeResume} className="w-full" disabled={!jobDescription.trim()}>
+                    Scan Resume
+                  </Button>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border">
+                    <div>
+                      <h3 className="font-bold text-lg">Match Score</h3>
+                      <p className="text-sm text-muted-foreground">Based on keyword overlap</p>
+                    </div>
+                    <div className="text-3xl font-bold text-blue-600">{analysisResults.score}%</div>
+                  </div>
+
+                  {analysisResults.missingKeywords.length > 0 && (
+                    <div className="space-y-2">
+                      <h3 className="font-bold text-red-600 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-red-600" />
+                        Missing Keywords
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {analysisResults.missingKeywords.map((keyword, i) => (
+                          <span key={i} className="px-2 py-1 bg-red-50 text-red-700 text-sm rounded border border-red-100">
+                            {keyword}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="space-y-2">
+                    <h3 className="font-bold text-blue-600 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-blue-600" />
+                      Suggestions
+                    </h3>
+                    <ul className="space-y-2">
+                      {analysisResults.suggestions.map((suggestion, i) => (
+                        <li key={i} className="text-sm p-3 bg-blue-50 text-blue-800 rounded border border-blue-100">
+                          {suggestion}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <Button variant="outline" onClick={() => setAnalysisResults(null)} className="w-full">
+                    Scan Another Job
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
       <main className="container mx-auto max-w-6xl py-8 px-4 flex flex-col lg:flex-row gap-8 print:p-0 print:block">
         {/* Editor Column */}
