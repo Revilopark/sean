@@ -153,5 +153,111 @@ export const opportunities: Opportunity[] = [
         "url": "https://www.nrep.org/certifications"
       }
     ]
+  },
+  /* Diverse Paths: Live Events, Aquaculture, Sustainable Farming */
+  {
+    "id": 41,
+    "title": "Event Coordinator (Outdoor Festivals)",
+    "organization": "Bakersfield Events Co.",
+    "location": "Bakersfield, CA",
+    "type": "Full-time",
+    "category": "Live Events",
+    "salary": "$45,000 - $55,000 per year",
+    "requirements": "Experience in event planning, logistics, and outdoor venue management",
+    "benefits": "Health, Dental, Vision",
+    "url": "https://www.indeed.com/q-events-l-bakersfield,-ca-jobs.html",
+    "distance_from_bakersfield": "0 miles",
+    "recommended_skills": ["Event Logistics", "Vendor Management", "Public Safety"],
+    "recommended_courses": [
+      {
+        "title": "Event Planning & Management",
+        "provider": "Coursera",
+        "url": "https://www.coursera.org/specializations/event-planning"
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "title": "Aquaculture Technician",
+    "organization": "Central Valley Fisheries",
+    "location": "Bakersfield, CA",
+    "type": "Full-time",
+    "category": "Aquaculture",
+    "salary": "$18 - $24 per hour",
+    "requirements": "Knowledge of fish biology, water quality testing, and hatchery operations",
+    "benefits": "Paid Time Off",
+    "url": "https://www.indeed.com/q-aquaculture-fisheries-l-california-jobs.html",
+    "distance_from_bakersfield": "0 miles",
+    "recommended_skills": ["Water Quality Analysis", "Fish Health Management", "Hatchery Operations"],
+    "recommended_courses": [
+      {
+        "title": "Aquaculture Production",
+        "provider": "Auburn University (Online)",
+        "url": "https://agriculture.auburn.edu/research/faas/"
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "title": "Regenerative Agriculture Specialist",
+    "organization": "Kern Sustainable Farms",
+    "location": "Bakersfield, CA",
+    "type": "Full-time",
+    "category": "Sustainable Farming",
+    "salary": "$50,000 - $65,000 per year",
+    "requirements": "Experience with soil health, cover cropping, and organic farming practices",
+    "benefits": "Full benefits package",
+    "url": "https://calagjobs.com/jobs/",
+    "distance_from_bakersfield": "0 miles",
+    "recommended_skills": ["Soil Science", "Organic Certification", "Crop Rotation"],
+    "recommended_courses": [
+      {
+        "title": "Regenerative Agriculture Essentials",
+        "provider": "Kiss the Ground",
+        "url": "https://kisstheground.com/education/"
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "title": "Outdoor Recreation Guide",
+    "organization": "Kern River Outfitters",
+    "location": "Kernville, CA",
+    "type": "Seasonal",
+    "category": "Outdoor Recreation",
+    "salary": "$150 - $200 per day",
+    "requirements": "First Aid/CPR, rafting or hiking experience, customer service skills",
+    "benefits": "Tips, Gear Discounts",
+    "url": "https://www.ziprecruiter.com/Jobs/Outdoor-Recreation/-in-Bakersfield,CA",
+    "distance_from_bakersfield": "~45 miles",
+    "recommended_skills": ["Wilderness First Aid", "Group Leadership", "Risk Management"],
+    "recommended_courses": [
+      {
+        "title": "Wilderness First Responder",
+        "provider": "NOLS",
+        "url": "https://www.nols.edu/en/coursefinder/courses/wilderness-first-responder-WFR/"
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "title": "Farm Area Manager",
+    "organization": "Grimmway Farms",
+    "location": "Bakersfield, CA",
+    "type": "Full-time",
+    "category": "Sustainable Farming",
+    "salary": "Competitive",
+    "requirements": "Agricultural management experience, knowledge of irrigation systems",
+    "benefits": "401(k), Health Insurance",
+    "url": "https://www.linkedin.com/jobs/agriculture-jobs-greater-bakersfield-area",
+    "distance_from_bakersfield": "0 miles",
+    "recommended_skills": ["Farm Management", "Irrigation Systems", "Budgeting"],
+    "recommended_courses": [
+      {
+        "title": "Agriculture Business Management",
+        "provider": "UC Davis Extension",
+        "url": "https://cpe.ucdavis.edu/area/agriculture"
+      }
+    ]
   }
 ];

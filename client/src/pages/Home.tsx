@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Search, MapPin, Briefcase, DollarSign, ExternalLink, Filter, BookOpen, Compass, ArrowUpDown, Clock, GraduationCap, Award } from "lucide-react";
+import { Search, MapPin, Briefcase, DollarSign, ExternalLink, Filter, BookOpen, Compass, ArrowUpDown, Clock, GraduationCap, Award, Tent, Fish, Sprout } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { OpportunityMap } from "@/components/OpportunityMap";
 
@@ -90,6 +90,52 @@ export default function Home() {
       </header>
 
       <main className="container py-12">
+        {/* Diverse Paths Explorer */}
+        <div className="mb-12 bg-secondary/20 border border-secondary rounded-sm p-6 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 opacity-5 pointer-events-none">
+            <Compass className="w-full h-full text-primary" />
+          </div>
+          
+          <div className="relative z-10">
+            <h2 className="font-heading text-2xl font-bold mb-2 flex items-center gap-2">
+              <Compass className="w-6 h-6 text-accent" />
+              Explore Diverse Paths
+            </h2>
+            <p className="text-muted-foreground mb-6 max-w-2xl">
+              Expand your horizons beyond traditional roles. Discover opportunities in outdoor events, sustainable aquaculture, and regenerative agriculture right here in Kern County.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Button 
+                variant={categoryFilter === "Live Events" ? "default" : "outline"}
+                onClick={() => setCategoryFilter(categoryFilter === "Live Events" ? "all" : "Live Events")}
+                className="h-auto py-4 flex flex-col gap-2 border-primary/20 hover:border-primary/50"
+              >
+                <Tent className="w-6 h-6 text-accent" />
+                <span className="font-bold">Outdoor Events</span>
+              </Button>
+              
+              <Button 
+                variant={categoryFilter === "Aquaculture" ? "default" : "outline"}
+                onClick={() => setCategoryFilter(categoryFilter === "Aquaculture" ? "all" : "Aquaculture")}
+                className="h-auto py-4 flex flex-col gap-2 border-primary/20 hover:border-primary/50"
+              >
+                <Fish className="w-6 h-6 text-accent" />
+                <span className="font-bold">Aquaculture</span>
+              </Button>
+              
+              <Button 
+                variant={categoryFilter === "Sustainable Farming" ? "default" : "outline"}
+                onClick={() => setCategoryFilter(categoryFilter === "Sustainable Farming" ? "all" : "Sustainable Farming")}
+                className="h-auto py-4 flex flex-col gap-2 border-primary/20 hover:border-primary/50"
+              >
+                <Sprout className="w-6 h-6 text-accent" />
+                <span className="font-bold">Regenerative Ag</span>
+              </Button>
+            </div>
+          </div>
+        </div>
+
         {/* Map Visualization */}
         <div className="mb-12">
           <div className="flex items-center gap-2 mb-4">
