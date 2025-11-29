@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Search, MapPin, Briefcase, DollarSign, ExternalLink, Filter, BookOpen, Compass, ArrowUpDown, Clock, GraduationCap, Award, Tent, Fish, Sprout, Users, MessageCircle } from "lucide-react";
+import { Search, MapPin, Briefcase, DollarSign, ExternalLink, Filter, BookOpen, Compass, ArrowUpDown, Clock, GraduationCap, Award, Tent, Fish, Sprout, Users, MessageCircle, SearchCode, Library } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { OpportunityMap } from "@/components/OpportunityMap";
 
@@ -379,6 +379,31 @@ export default function Home() {
                             View Field Report <ExternalLink className="w-4 h-4" />
                           </a>
                         </Button>
+                        
+                        <div className="grid grid-cols-2 gap-2 mt-2">
+                          <Button asChild variant="outline" size="sm" className="text-[10px] h-8 border-primary/20 hover:bg-primary/5">
+                            <a 
+                              href={`https://www.google.com/search?q=${encodeURIComponent(job.similar_jobs_query || job.title + " jobs Bakersfield CA")}`} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="flex items-center justify-center gap-1.5"
+                            >
+                              <SearchCode className="w-3 h-3" />
+                              Find Similar Jobs
+                            </a>
+                          </Button>
+                          <Button asChild variant="outline" size="sm" className="text-[10px] h-8 border-primary/20 hover:bg-primary/5">
+                            <a 
+                              href={`https://www.google.com/search?q=${encodeURIComponent(job.learning_resources_query || job.title + " training courses")}`} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="flex items-center justify-center gap-1.5"
+                            >
+                              <Library className="w-3 h-3" />
+                              Find Resources
+                            </a>
+                          </Button>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>

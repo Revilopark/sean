@@ -18,6 +18,8 @@ export const opportunitySchema = z.object({
     provider: z.string(),
     url: z.string()
   })).optional(),
+  similar_jobs_query: z.string().optional(),
+  learning_resources_query: z.string().optional(),
 });
 
 export type Opportunity = z.infer<typeof opportunitySchema>;

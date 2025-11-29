@@ -79,7 +79,9 @@ export const opportunities: Opportunity[] = [
         "provider": "GeoEnviroPro",
         "url": "https://geoenviropro.thinkific.com/courses/ReportWriting"
       }
-    ]
+    ],
+    "similar_jobs_query": "Environmental Scientist jobs Bakersfield CA",
+    "learning_resources_query": "Technical writing environmental science courses"
   },
   {
     "id": 35,
@@ -100,7 +102,9 @@ export const opportunities: Opportunity[] = [
         "provider": "Coursera",
         "url": "https://www.coursera.org/learn/project-management-foundations"
       }
-    ]
+    ],
+    "similar_jobs_query": "Associate Environmental Scientist jobs Bakersfield CA",
+    "learning_resources_query": "Project management environmental policy courses"
   },
   {
     "id": 36,
@@ -121,7 +125,9 @@ export const opportunities: Opportunity[] = [
         "provider": "Various",
         "url": "https://www.centerforwildlifestudies.org/courses"
       }
-    ]
+    ],
+    "similar_jobs_query": "Environmental Technician jobs Bakersfield CA",
+    "learning_resources_query": "Environmental field sampling safety training"
   },
   {
     "id": 37,
@@ -142,7 +148,9 @@ export const opportunities: Opportunity[] = [
         "provider": "Center for Wildlife Studies",
         "url": "https://www.centerforwildlifestudies.org/courses"
       }
-    ]
+    ],
+    "similar_jobs_query": "Field Technician environmental jobs Bakersfield CA",
+    "learning_resources_query": "Field research GPS navigation training"
   },
   {
     "id": 38,
@@ -163,7 +171,9 @@ export const opportunities: Opportunity[] = [
         "provider": "Husson University",
         "url": "https://www.husson.edu/online/online-degrees/bachelor-of-science-in-wildlife-biology-and-conservation"
       }
-    ]
+    ],
+    "similar_jobs_query": "Wildlife Biologist jobs Bakersfield CA",
+    "learning_resources_query": "Wildlife monitoring identification courses"
   },
   {
     "id": 39,
@@ -184,7 +194,9 @@ export const opportunities: Opportunity[] = [
         "provider": "Conservation Training",
         "url": "https://www.conservationtraining.org/"
       }
-    ]
+    ],
+    "similar_jobs_query": "Conservation Corps jobs Bakersfield CA",
+    "learning_resources_query": "Conservation community service training"
   },
   {
     "id": 40,
@@ -205,7 +217,9 @@ export const opportunities: Opportunity[] = [
         "provider": "NREP",
         "url": "https://www.nrep.org/certifications"
       }
-    ]
+    ],
+    "similar_jobs_query": "Environmental Compliance Specialist jobs Bakersfield CA",
+    "learning_resources_query": "Environmental regulations auditing courses"
   },
   /* Diverse Paths: Live Events, Aquaculture, Sustainable Farming */
   {
@@ -227,7 +241,9 @@ export const opportunities: Opportunity[] = [
         "provider": "Coursera",
         "url": "https://www.coursera.org/specializations/event-planning"
       }
-    ]
+    ],
+    "similar_jobs_query": "Event Coordinator jobs Bakersfield CA",
+    "learning_resources_query": "Event planning logistics management courses"
   },
   {
     "id": 42,
@@ -248,7 +264,9 @@ export const opportunities: Opportunity[] = [
         "provider": "Auburn University (Online)",
         "url": "https://agriculture.auburn.edu/research/faas/"
       }
-    ]
+    ],
+    "similar_jobs_query": "Aquaculture jobs Bakersfield CA",
+    "learning_resources_query": "Aquaculture fish health hatchery training"
   },
   {
     "id": 43,
@@ -269,7 +287,9 @@ export const opportunities: Opportunity[] = [
         "provider": "Kiss the Ground",
         "url": "https://kisstheground.com/education/"
       }
-    ]
+    ],
+    "similar_jobs_query": "Regenerative Agriculture jobs Bakersfield CA",
+    "learning_resources_query": "Soil science organic farming courses"
   },
   {
     "id": 44,
@@ -290,7 +310,9 @@ export const opportunities: Opportunity[] = [
         "provider": "NOLS",
         "url": "https://www.nols.edu/en/coursefinder/courses/wilderness-first-responder-WFR/"
       }
-    ]
+    ],
+    "similar_jobs_query": "Outdoor Guide jobs Kernville CA",
+    "learning_resources_query": "Wilderness first aid outdoor leadership training"
   },
   {
     "id": 45,
@@ -311,6 +333,8 @@ export const opportunities: Opportunity[] = [
         "provider": "UC Davis Extension",
         "url": "https://cpe.ucdavis.edu/area/agriculture"
       }
-    ]
+    ],
+    "similar_jobs_query": "Farm Manager jobs Bakersfield CA",
+    "learning_resources_query": "Farm management irrigation systems training"
   }
 ];
