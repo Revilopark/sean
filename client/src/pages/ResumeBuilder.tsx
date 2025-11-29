@@ -4,7 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Plus, Trash2, Download, FileText, ChevronLeft, Printer, Image as ImageIcon, Upload, Sparkles, X } from "lucide-react";
+import { Plus, Trash2, Download, FileText, ChevronLeft, Printer, Image as ImageIcon, Upload, Sparkles, X, Share2, Copy, Check } from "lucide-react";
+import LZString from "lz-string";
 import { Link } from "wouter";
 import { useReactToPrint } from "react-to-print";
 
@@ -79,6 +80,9 @@ const initialData: ResumeData = {
 export default function ResumeBuilder() {
   const [resumeData, setResumeData] = useState<ResumeData>(initialData);
   const [showAIReview, setShowAIReview] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareUrl, setShareUrl] = useState("");
+  const [copied, setCopied] = useState(false);
   const [jobDescription, setJobDescription] = useState("");
   const [analysisResults, setAnalysisResults] = useState<{score: number, missingKeywords: string[], suggestions: string[]} | null>(null);
   const componentRef = useRef<HTMLDivElement>(null);
@@ -200,6 +204,19 @@ export default function ResumeBuilder() {
     }
   };
 
+  const generateShareLink = () => {
+    const compressed = LZString.compressToEncodedURIComponent(JSON.stringify(resumeData));
+    const url = `${window.location.origin}/resume/shared?d=${compressed}`;
+    setShareUrl(url);
+    setShowShareModal(true);
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(shareUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   const analyzeResume = () => {
     if (!jobDescription.trim()) return;
 
@@ -258,12 +275,48 @@ export default function ResumeBuilder() {
             <Button onClick={() => setShowAIReview(true)} className="bg-blue-600 text-white hover:bg-blue-700 font-bold border-none">
               <Sparkles className="w-4 h-4 mr-2" /> AI Review
             </Button>
+            <Button onClick={generateShareLink} className="bg-[#2c3e50] text-white hover:bg-[#34495e] font-bold border-none">
+              <Share2 className="w-4 h-4 mr-2" /> Share
+            </Button>
             <Button onClick={() => handlePrint && handlePrint()} className="bg-[#e6d5c3] text-[#2c3e50] hover:bg-white font-bold">
               <Printer className="w-4 h-4 mr-2" /> Export PDF
             </Button>
           </div>
         </div>
       </header>
+
+      {/* Share Modal */}
+      {showShareModal && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 print:hidden">
+          <Card className="w-full max-w-md">
+            <CardHeader className="flex flex-row items-center justify-between border-b">
+              <CardTitle className="flex items-center gap-2">
+                <Share2 className="w-5 h-5 text-[#8b4513]" />
+                Share Resume
+              </CardTitle>
+              <Button variant="ghost" size="icon" onClick={() => setShowShareModal(false)}>
+                <X className="w-4 h-4" />
+              </Button>
+            </CardHeader>
+            <CardContent className="space-y-4 pt-6">
+              <p className="text-sm text-muted-foreground">
+                Anyone with this link can view your resume and portfolio. The link contains all your data securely.
+              </p>
+              <div className="flex items-center gap-2">
+                <Input value={shareUrl} readOnly className="bg-muted" />
+                <Button size="icon" onClick={copyToClipboard} className={copied ? "bg-green-600 hover:bg-green-700" : ""}>
+                  {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                </Button>
+              </div>
+              <Button variant="outline" className="w-full" asChild>
+                <a href={shareUrl} target="_blank" rel="noopener noreferrer">
+                  Open Public View
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
       {/* AI Review Modal */}
       {showAIReview && (
