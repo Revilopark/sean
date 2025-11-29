@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Search, MapPin, Briefcase, DollarSign, ExternalLink, Filter, BookOpen, Compass, ArrowUpDown, Clock } from "lucide-react";
+import { Search, MapPin, Briefcase, DollarSign, ExternalLink, Filter, BookOpen, Compass, ArrowUpDown, Clock, GraduationCap, Award } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { OpportunityMap } from "@/components/OpportunityMap";
 
@@ -233,6 +233,47 @@ export default function Home() {
                           <h4 className="font-mono text-xs font-bold uppercase text-muted-foreground mb-1">Requirements</h4>
                           <p className="text-sm line-clamp-3 text-foreground/80">{job.requirements}</p>
                         </div>
+
+                        {/* Skills & Courses Section */}
+                        {(job.recommended_skills || job.recommended_courses) && (
+                          <div className="mt-3 p-3 bg-secondary/30 rounded border border-secondary/50">
+                            {job.recommended_skills && (
+                              <div className="mb-3">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <Award className="w-3 h-3 text-accent" />
+                                  <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Recommended Skills</span>
+                                </div>
+                                <div className="flex flex-wrap gap-1.5">
+                                  {job.recommended_skills.map((skill, idx) => (
+                                    <Badge key={idx} variant="outline" className="text-[10px] h-5 px-1.5 bg-background/50 border-primary/20 text-foreground/80">
+                                      {skill}
+                                    </Badge>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            
+                            {job.recommended_courses && (
+                              <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                  <GraduationCap className="w-3 h-3 text-accent" />
+                                  <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Training Resources</span>
+                                </div>
+                                <ul className="space-y-1.5">
+                                  {job.recommended_courses.map((course, idx) => (
+                                    <li key={idx} className="text-xs truncate">
+                                      <a href={course.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 hover:underline flex items-center gap-1.5 transition-colors">
+                                        <ExternalLink className="w-2.5 h-2.5 opacity-70" />
+                                        <span className="font-medium">{course.title}</span>
+                                        <span className="opacity-50 text-[10px]">({course.provider})</span>
+                                      </a>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
 
                       <div className="mt-auto pt-2">

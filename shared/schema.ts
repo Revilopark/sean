@@ -12,6 +12,12 @@ export const opportunitySchema = z.object({
   benefits: z.string(),
   url: z.string(),
   distance_from_bakersfield: z.string(),
+  recommended_skills: z.array(z.string()).optional(),
+  recommended_courses: z.array(z.object({
+    title: z.string(),
+    provider: z.string(),
+    url: z.string()
+  })).optional(),
 });
 
 export type Opportunity = z.infer<typeof opportunitySchema>;
