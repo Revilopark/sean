@@ -6,12 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Search, MapPin, Briefcase, DollarSign, ExternalLink, Filter, BookOpen, Compass } from "lucide-react";
+import { Search, MapPin, Briefcase, DollarSign, ExternalLink, Filter, BookOpen, Compass, ArrowUpDown, Clock } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const [sortBy, setSortBy] = useState("default");
 
   const filteredOpportunities = opportunities.filter((job) => {
     const matchesSearch =
@@ -22,7 +23,21 @@ export default function Home() {
     const matchesCategory = categoryFilter === "all" || job.category === categoryFilter;
 
     return matchesSearch && matchesCategory;
+  }).sort((a, b) => {
+    if (sortBy === "proximity") {
+      const distA = parseInt(a.distance_from_bakersfield.replace(/[^0-9]/g, "")) || 0;
+      const distB = parseInt(b.distance_from_bakersfield.replace(/[^0-9]/g, "")) || 0;
+      return distA - distB;
+    }
+    return 0;
   });
+
+  const getTravelTime = (distanceStr: string) => {
+    const miles = parseInt(distanceStr.replace(/[^0-9]/g, "")) || 0;
+    if (miles === 0) return "Local";
+    const hours = Math.round(miles / 60 * 10) / 10; // Assuming 60mph avg
+    return `~${hours} hrs drive`;
+  };
 
   const categories = Array.from(new Set(opportunities.map((job) => job.category)));
 
@@ -114,6 +129,22 @@ export default function Home() {
                 </SelectContent>
               </Select>
             </div>
+
+            <div className="w-full md:w-1/4 space-y-2">
+              <label className="text-sm font-mono font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                <ArrowUpDown className="w-4 h-4" />
+                Sort Order
+              </label>
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="border-2 border-input bg-background/50">
+                  <SelectValue placeholder="Default" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="default">Default (ID)</SelectItem>
+                  <SelectItem value="proximity">Proximity to Base Camp</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             
             <div className="w-full md:w-1/4 pb-1">
               <div className="text-right font-mono text-xs text-muted-foreground">
@@ -154,7 +185,13 @@ export default function Home() {
                         <Badge variant="outline" className="bg-background font-mono text-xs border-primary/30 text-primary rounded-sm px-2 py-0.5">
                           ID: {job.id.toString().padStart(3, '0')}
                         </Badge>
-                        <span className="font-mono text-xs text-muted-foreground">{job.distance_from_bakersfield}</span>
+                        <div className="flex flex-col items-end">
+                          <span className="font-mono text-xs text-muted-foreground">{job.distance_from_bakersfield}</span>
+                          <span className="font-mono text-[10px] text-primary flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {getTravelTime(job.distance_from_bakersfield)}
+                          </span>
+                        </div>
                       </div>
                       <CardTitle className="font-heading text-xl mt-2 leading-tight group-hover:text-primary transition-colors">
                         {job.title}
