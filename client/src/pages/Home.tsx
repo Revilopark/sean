@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Search, MapPin, Briefcase, DollarSign, ExternalLink, Filter, BookOpen, Compass, ArrowUpDown, Clock } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { OpportunityMap } from "@/components/OpportunityMap";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -89,6 +90,15 @@ export default function Home() {
       </header>
 
       <main className="container py-12">
+        {/* Map Visualization */}
+        <div className="mb-12">
+          <div className="flex items-center gap-2 mb-4">
+            <Compass className="w-6 h-6 text-primary" />
+            <h2 className="font-heading text-2xl font-bold">Expedition Map</h2>
+          </div>
+          <OpportunityMap opportunities={filteredOpportunities} />
+        </div>
+
         {/* Search & Filter Controls */}
         <div className="bg-card border-2 border-primary/20 rounded-sm p-6 mb-12 shadow-sm relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-primary/20"></div>
