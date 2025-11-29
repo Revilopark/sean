@@ -276,9 +276,12 @@ export default function ResumeBuilder() {
                 Field Resume Builder
               </h1>
               {lastSaved && (
-                <span className="text-xs text-[#e6d5c3]/80 font-mono">
-                  Auto-saved at {lastSaved.toLocaleTimeString()}
-                </span>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse shadow-[0_0_8px_rgba(74,222,128,0.5)]" />
+                  <span className="text-xs text-[#e6d5c3] font-mono font-medium tracking-wide">
+                    Saved at {lastSaved.toLocaleTimeString()}
+                  </span>
+                </div>
               )}
             </div>
           </div>
