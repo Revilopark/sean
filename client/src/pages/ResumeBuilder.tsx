@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Plus, Trash2, Download, FileText, ChevronLeft, Printer } from "lucide-react";
+import { Plus, Trash2, Download, FileText, ChevronLeft, Printer, Image as ImageIcon, Upload } from "lucide-react";
 import { Link } from "wouter";
 import { useReactToPrint } from "react-to-print";
 
@@ -27,6 +27,13 @@ interface Education {
   year: string;
 }
 
+interface PortfolioItem {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+}
+
 interface ResumeData {
   fullName: string;
   email: string;
@@ -36,6 +43,7 @@ interface ResumeData {
   skills: string;
   experience: Experience[];
   education: Education[];
+  portfolio: PortfolioItem[];
 }
 
 const initialData: ResumeData = {
@@ -64,7 +72,8 @@ const initialData: ResumeData = {
       location: "Bakersfield, CA",
       year: "2019"
     }
-  ]
+  ],
+  portfolio: []
 };
 
 export default function ResumeBuilder() {
@@ -144,6 +153,48 @@ export default function ResumeBuilder() {
       ...prev,
       education: prev.education.filter(edu => edu.id !== id)
     }));
+  };
+
+  const addPortfolioItem = () => {
+    setResumeData(prev => ({
+      ...prev,
+      portfolio: [
+        ...prev.portfolio,
+        {
+          id: Date.now().toString(),
+          title: "",
+          description: "",
+          image: ""
+        }
+      ]
+    }));
+  };
+
+  const updatePortfolioItem = (id: string, field: keyof PortfolioItem, value: string) => {
+    setResumeData(prev => ({
+      ...prev,
+      portfolio: prev.portfolio.map(item => 
+        item.id === id ? { ...item, [field]: value } : item
+      )
+    }));
+  };
+
+  const removePortfolioItem = (id: string) => {
+    setResumeData(prev => ({
+      ...prev,
+      portfolio: prev.portfolio.filter(item => item.id !== id)
+    }));
+  };
+
+  const handleImageUpload = (id: string, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        updatePortfolioItem(id, 'image', reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -314,6 +365,63 @@ export default function ResumeBuilder() {
               ))}
             </CardContent>
           </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle>Portfolio & Projects</CardTitle>
+              <Button size="sm" variant="outline" onClick={addPortfolioItem}>
+                <Plus className="w-4 h-4 mr-2" /> Add
+              </Button>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {resumeData.portfolio.map((item) => (
+                <div key={item.id} className="space-y-4 p-4 border rounded-lg bg-secondary/10 relative group">
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 text-destructive hover:bg-destructive/10"
+                    onClick={() => removePortfolioItem(item.id)}
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
+                  <div className="space-y-2">
+                    <label className="text-xs font-medium uppercase text-muted-foreground">Project Title</label>
+                    <Input value={item.title} onChange={(e) => updatePortfolioItem(item.id, 'title', e.target.value)} />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-medium uppercase text-muted-foreground">Description</label>
+                    <Textarea 
+                      value={item.description} 
+                      onChange={(e) => updatePortfolioItem(item.id, 'description', e.target.value)} 
+                      className="h-20"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-medium uppercase text-muted-foreground">Project Image / Document</label>
+                    <div className="flex items-center gap-4">
+                      {item.image && (
+                        <img src={item.image} alt="Preview" className="w-16 h-16 object-cover rounded border" />
+                      )}
+                      <div className="relative">
+                        <Input 
+                          type="file" 
+                          accept="image/*" 
+                          className="hidden" 
+                          id={`file-${item.id}`}
+                          onChange={(e) => handleImageUpload(item.id, e)}
+                        />
+                        <Button asChild variant="outline" size="sm">
+                          <label htmlFor={`file-${item.id}`} className="cursor-pointer">
+                            <Upload className="w-4 h-4 mr-2" /> Upload Photo
+                          </label>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
         </div>
 
         {/* Preview Column */}
@@ -403,6 +511,26 @@ export default function ResumeBuilder() {
                           <span className="text-sm italic text-gray-700">{edu.degree}</span>
                           <span className="text-sm text-gray-500">{edu.location}</span>
                         </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Portfolio */}
+              {resumeData.portfolio.length > 0 && (
+                <div className="mb-8 break-inside-avoid">
+                  <h2 className="text-lg font-bold uppercase tracking-wider border-b border-gray-300 mb-4 pb-1">Field Portfolio</h2>
+                  <div className="grid grid-cols-2 gap-6">
+                    {resumeData.portfolio.map((item) => (
+                      <div key={item.id} className="break-inside-avoid">
+                        {item.image && (
+                          <div className="mb-2 aspect-video w-full overflow-hidden rounded border border-gray-200 bg-gray-50">
+                            <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                        <h3 className="font-bold text-sm mb-1">{item.title}</h3>
+                        <p className="text-xs text-gray-600 leading-relaxed">{item.description}</p>
                       </div>
                     ))}
                   </div>
