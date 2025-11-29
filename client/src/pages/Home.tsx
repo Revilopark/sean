@@ -1,19 +1,24 @@
 import { useState } from "react";
+import { Link } from "wouter";
 import { opportunities, mentors } from "@/lib/data";
+import { useJobTracker } from "@/contexts/JobTrackerContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Search, MapPin, Briefcase, DollarSign, ExternalLink, Filter, BookOpen, Compass, ArrowUpDown, Clock, GraduationCap, Award, Tent, Fish, Sprout, Users, MessageCircle, SearchCode, Library } from "lucide-react";
+import { Search, MapPin, Briefcase, DollarSign, ExternalLink, Filter, BookOpen, Compass, ArrowUpDown, Clock, GraduationCap, Award, Tent, Fish, Sprout, Users, MessageCircle, SearchCode, Library, PlusCircle, CheckCircle2 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { OpportunityMap } from "@/components/OpportunityMap";
 
 export default function Home() {
+  const { trackedJobs, addJob } = useJobTracker();
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [sortBy, setSortBy] = useState("default");
+
+  const isTracked = (id: number) => trackedJobs.some(j => j.id === id);
 
   const filteredOpportunities = opportunities.filter((job) => {
     const matchesSearch =
@@ -63,6 +68,14 @@ export default function Home() {
                 <br />
                 <span className="font-mono text-sm opacity-75 mt-2 block">Region: Bakersfield, CA (Local Only)</span>
               </p>
+              <div className="mt-6">
+                <Button asChild className="bg-[#e6d5c3] text-[#2c3e50] hover:bg-white font-bold shadow-lg border-2 border-[#2c3e50]/20">
+                  <Link href="/my-log">
+                    <BookOpen className="w-4 h-4 mr-2" />
+                    My Expedition Log ({trackedJobs.length})
+                  </Link>
+                </Button>
+              </div>
             </div>
             
             <div className="hidden md:block p-4 bg-white/10 backdrop-blur-sm rounded border border-white/20 rotate-1 shadow-xl max-w-xs">
@@ -373,14 +386,26 @@ export default function Home() {
                         )}
                       </div>
 
-                      <div className="mt-auto pt-2">
-                        <Button asChild className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold tracking-wide rounded-sm shadow-sm group-hover:translate-y-[-2px] transition-transform">
-                          <a href={job.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
-                            View Field Report <ExternalLink className="w-4 h-4" />
-                          </a>
-                        </Button>
+                      <div className="mt-auto pt-2 space-y-2">
+                        <div className="grid grid-cols-[1fr_auto] gap-2">
+                          <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold tracking-wide rounded-sm shadow-sm group-hover:translate-y-[-2px] transition-transform">
+                            <a href={job.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                              View Field Report <ExternalLink className="w-4 h-4" />
+                            </a>
+                          </Button>
+                          <Button 
+                            variant={isTracked(job.id) ? "secondary" : "outline"}
+                            size="icon"
+                            className={`rounded-sm border-primary/20 ${isTracked(job.id) ? 'bg-green-100 text-green-700 border-green-200' : 'hover:bg-primary/5'}`}
+                            onClick={() => !isTracked(job.id) && addJob(job)}
+                            disabled={isTracked(job.id)}
+                            title={isTracked(job.id) ? "Added to Log" : "Track this Opportunity"}
+                          >
+                            {isTracked(job.id) ? <CheckCircle2 className="w-5 h-5" /> : <PlusCircle className="w-5 h-5" />}
+                          </Button>
+                        </div>
                         
-                        <div className="grid grid-cols-2 gap-2 mt-2">
+                        <div className="grid grid-cols-2 gap-2">
                           <Button asChild variant="outline" size="sm" className="text-[10px] h-8 border-primary/20 hover:bg-primary/5">
                             <a 
                               href={`https://www.google.com/search?q=${encodeURIComponent(job.similar_jobs_query || job.title + " jobs Bakersfield CA")}`} 
