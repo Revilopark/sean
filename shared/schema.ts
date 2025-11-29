@@ -23,4 +23,18 @@ export const opportunitySchema = z.object({
 export type Opportunity = z.infer<typeof opportunitySchema>;
 
 export const insertOpportunitySchema = opportunitySchema.omit({ id: true });
+
+export const mentorSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  role: z.string(),
+  organization: z.string(),
+  category: z.string(),
+  bio: z.string(),
+  imageUrl: z.string().optional(),
+  contactUrl: z.string(),
+  availability: z.string()
+});
+
+export type Mentor = z.infer<typeof mentorSchema>;
 export type InsertOpportunity = z.infer<typeof insertOpportunitySchema>;

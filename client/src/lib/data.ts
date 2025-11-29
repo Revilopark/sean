@@ -1,4 +1,57 @@
-import { Opportunity } from "../../../shared/schema";
+import { Opportunity, Mentor } from "../../../shared/schema";
+
+export const mentors: Mentor[] = [
+  {
+    id: 1,
+    name: "Dr. Sarah Miller",
+    role: "Lead Ecologist",
+    organization: "Kern Family Farm",
+    category: "Sustainable Farming",
+    bio: "Specializes in regenerative soil practices and holistic land management. Passionate about teaching the next generation of farmers.",
+    contactUrl: "https://www.kernfamilyfarm.com/about-kern-family-farm",
+    availability: "Open for informational interviews"
+  },
+  {
+    id: 2,
+    name: "Ryan Hall",
+    role: "Aquaculture Specialist",
+    organization: "Syngenta Flowers / ProAqua",
+    category: "Aquaculture",
+    bio: "Over 20 years of experience in horticulture and aquaculture systems. Expert in fish health and hatchery operations.",
+    contactUrl: "https://proaqua.com/",
+    availability: "Monthly mentorship calls"
+  },
+  {
+    id: 3,
+    name: "Event Director",
+    role: "Senior Coordinator",
+    organization: "Park Place Special Events",
+    category: "Live Events",
+    bio: "Manages large-scale outdoor corporate and community events in Bakersfield. Expert in logistics and venue management.",
+    contactUrl: "https://parkplacespecialevents.com/events/",
+    availability: "Quarterly workshops"
+  },
+  {
+    id: 4,
+    name: "Jeff Mitchell",
+    role: "Cooperative Extension Specialist",
+    organization: "UC Cooperative Extension",
+    category: "Regenerative Ag",
+    bio: "Dedicated 20 years to studying regenerative agriculture in the Central Valley. Focuses on soil health and cover cropping.",
+    contactUrl: "https://www.valleyagvoice.com/regenerative-agriculture-offers-long-term-solutions-for-central-valley/",
+    availability: "Academic advising"
+  },
+  {
+    id: 5,
+    name: "Operations Manager",
+    role: "Venue Manager",
+    organization: "The Belle Rae",
+    category: "Live Events",
+    bio: "Oversees one of Bakersfield's premier outdoor event venues. Experienced in vendor relations and client management.",
+    contactUrl: "https://www.yelp.com/biz/the-belle-rae-bakersfield",
+    availability: "Internship inquiries"
+  }
+];
 
 export const opportunities: Opportunity[] = [
   /* Filtered to Bakersfield Only */

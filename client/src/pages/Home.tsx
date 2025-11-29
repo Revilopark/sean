@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { opportunities } from "@/lib/data";
+import { opportunities, mentors } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Search, MapPin, Briefcase, DollarSign, ExternalLink, Filter, BookOpen, Compass, ArrowUpDown, Clock, GraduationCap, Award, Tent, Fish, Sprout } from "lucide-react";
+import { Search, MapPin, Briefcase, DollarSign, ExternalLink, Filter, BookOpen, Compass, ArrowUpDown, Clock, GraduationCap, Award, Tent, Fish, Sprout, Users, MessageCircle } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { OpportunityMap } from "@/components/OpportunityMap";
 
@@ -133,6 +133,57 @@ export default function Home() {
                 <span className="font-bold">Regenerative Ag</span>
               </Button>
             </div>
+          </div>
+        </div>
+
+        {/* Mentorship Board */}
+        <div className="mb-12">
+          <div className="flex items-center gap-2 mb-4">
+            <Users className="w-6 h-6 text-primary" />
+            <h2 className="font-heading text-2xl font-bold">Local Mentorship Board</h2>
+          </div>
+          <p className="text-muted-foreground mb-6 max-w-2xl">
+            Connect with experienced professionals in Bakersfield who are shaping the future of outdoor industries. Reach out for advice, informational interviews, or guidance.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {mentors.map((mentor) => (
+              <Card key={mentor.id} className="group hover:border-primary/50 transition-colors bg-card/50 backdrop-blur-sm">
+                <CardHeader className="pb-2">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <CardTitle className="font-heading text-lg">{mentor.name}</CardTitle>
+                      <div className="text-sm font-bold text-muted-foreground uppercase tracking-wide mt-1">
+                        {mentor.role}
+                      </div>
+                      <div className="text-xs text-primary mt-0.5">{mentor.organization}</div>
+                    </div>
+                    <Badge variant="secondary" className="text-[10px] uppercase tracking-wider">
+                      {mentor.category}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="pt-2 flex-grow flex flex-col gap-3">
+                  <p className="text-sm text-foreground/80 line-clamp-3 italic">
+                    "{mentor.bio}"
+                  </p>
+                  
+                  <div className="mt-auto pt-2 space-y-3">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground bg-secondary/30 p-2 rounded">
+                      <Clock className="w-3 h-3" />
+                      <span>Availability: {mentor.availability}</span>
+                    </div>
+                    
+                    <Button asChild variant="outline" className="w-full border-primary/20 hover:bg-primary/5 hover:text-primary">
+                      <a href={mentor.contactUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                        <MessageCircle className="w-4 h-4" />
+                        Connect Profile
+                      </a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
 
