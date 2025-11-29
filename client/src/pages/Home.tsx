@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Search, MapPin, Briefcase, DollarSign, ExternalLink, Filter, BookOpen, Compass, ArrowUpDown, Clock, GraduationCap, Award, Tent, Fish, Sprout, Users, MessageCircle, SearchCode, Library, PlusCircle, CheckCircle2 } from "lucide-react";
+import { Search, MapPin, Briefcase, DollarSign, ExternalLink, Filter, BookOpen, Compass, ArrowUpDown, Clock, GraduationCap, Award, Tent, Fish, Sprout, Users, MessageCircle, SearchCode, Library, PlusCircle, CheckCircle2, FileText } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { OpportunityMap } from "@/components/OpportunityMap";
 
@@ -68,11 +68,17 @@ export default function Home() {
                 <br />
                 <span className="font-mono text-sm opacity-75 mt-2 block">Region: Bakersfield, CA (Local Only)</span>
               </p>
-              <div className="mt-6">
+              <div className="mt-6 flex gap-3">
                 <Button asChild className="bg-[#e6d5c3] text-[#2c3e50] hover:bg-white font-bold shadow-lg border-2 border-[#2c3e50]/20">
                   <Link href="/my-log">
                     <BookOpen className="w-4 h-4 mr-2" />
                     My Expedition Log ({trackedJobs.length})
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" className="bg-transparent text-white border-white/30 hover:bg-white/10 hover:text-white font-bold shadow-lg">
+                  <Link href="/resume-builder">
+                    <FileText className="w-4 h-4 mr-2" />
+                    Resume Builder
                   </Link>
                 </Button>
               </div>

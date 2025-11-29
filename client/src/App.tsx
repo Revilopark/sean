@@ -7,6 +7,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { JobTrackerProvider } from "./contexts/JobTrackerContext";
 import Home from "./pages/Home";
 import MyExpeditionLog from "./pages/MyExpeditionLog";
+import ResumeBuilder from "./pages/ResumeBuilder";
 
 
 function Router() {
@@ -14,6 +15,7 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/my-log"} component={MyExpeditionLog} />
+      <Route path={"/resume-builder"} component={ResumeBuilder} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
